@@ -1,0 +1,7 @@
+# General
+# ------------------------------------------------------------------------------
+USE_DOCKER=yes
+IPYTHONDIR=/app/.ipython
+# Polygon
+# ------------------------------------------------------------------------------
+POLYGON_API_KEY=LR1AfrLyexoHUSrcHEt6NBAbjeoPo6Uc
