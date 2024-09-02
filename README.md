@@ -1,54 +1,96 @@
-# webull backend
+Here is the updated README.md with additional commands and content:
 
-Webull Backend
+## Index
 
-[![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+1. **Introduction**
+   - Overview
+   - Key Features
+2. **Installation**
+   - Prerequisites
+3. **Usage**
+   - Basic Usage
+   - Advanced Configuration
+4. **Examples**
+5. **Architecture**
+   - Key Components (Note: This project uses Django, PostgreSQL, and Nginx as key components)
+6. **Contributing**
+   - How to Contribute
+   - Code of Conduct
+7. **License**
+   - License Information (This project is licensed under the MIT license)
+8. **Contact**
+   - Support (elbic@github.com)
+   - Feedback
 
-License: MIT
+## Introduction
 
-## Settings
+Webull Backend is a Django application built using Cookiecutter-Django, designed to provide a robust backend infrastructure for webull applications.
 
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
+### Overview
+This project utilizes Docker and Docker Compose for containerization and deployment, ensuring seamless integration with other services.
 
-## Basic Commands
+### Key Features
+- Built with Django framework for efficient development and scalability.
+- Utilizes PostgreSQL as the primary database management system.
+- Leverages Nginx as a reverse proxy server for load balancing and caching.
+- The [Polygon.io](https://polygon.io/) Stocks API provides REST endpoints that let you query the latest market data from all US stock exchanges. You can also find data on company financials, stock market holidays, corporate actions, and more.
 
-### Setting Up Your Users
+## Usage
 
-- To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+### Basic Usage
+Create a Polygon account to retrieve financial data and update the API KEY in `.envs/.production/.django`
+```
+# Polygon
+# ------------------------------------------------------------------------------
+POLYGON_API_KEY=
+```
 
-- To create a **superuser account**, use this command:
+To use this project, start by building and pushing Docker images using
+```
+docker-compose -f docker-compose.local.yml build
+docker-compose -f docker-compose.local.yml up
+```
+After deployment, run the following commands to create a superuser and extract NYSE tickers:
+```
+docker-compose -f docker-compose.local.yml run --rm django python manage.py createsuperuser
+docker-compose -f docker-compose.local.yml run --rm django python manage.py extract_tickers nyse
+```
+Login into the Django Admin with the created user
 
-      $ python manage.py createsuperuser
+Visit http://localhost:8000/api/docs/ to see the API Documentation
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
 
-### Type checks
 
-Running type checks with mypy:
+### Advanced Configuration
+Refer to the `docker-compose.yml` file for detailed configuration options.
 
-    $ mypy webull_backend
+## Examples
 
-### Test coverage
+![](assets/financial_data.png)
 
-To run the tests, check your test coverage, and generate an HTML coverage report:
+## Architecture
 
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
+### Key Components
+- **Django Application Server**: Handles backend logic and business processes.
+- **PostgreSQL Database Management System**: Manages data storage and retrieval for the application.
+- **Nginx Reverse Proxy Server**: Acts as a load balancer and caching layer between clients and the Django application server.
 
-#### Running tests with pytest
+## Contributing
 
-    $ pytest
+### How to Contribute
+To contribute to this project, please fork this repository, make necessary changes, and submit a pull request with clear explanations of your contributions.
 
-### Live reloading and Sass CSS compilation
+### Code of Conduct
+This project adheres to the Contributor Covenant code of conduct. Please refer to the [Contributor Covenant](https://www.contributorcovenant.com/) website for more information.
 
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
+## License
 
-## Deployment
+This project is licensed under the MIT license. For more information, please see the [LICENSE](LICENSE) file in this repository.
 
-The following details how to deploy this application.
+## Contact
 
-### Docker
+### Support
+For support or questions regarding this project, please contact elbic@github.com.
 
-See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
+### Feedback
+We appreciate your feedback and suggestions to improve this project.
