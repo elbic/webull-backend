@@ -1,5 +1,3 @@
-Here is the updated README.md with additional commands and content:
-
 ## Index
 
 1. **Introduction**
